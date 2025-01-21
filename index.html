@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pusat Sukan UTeM - Inventory Management System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJX+CQ5k2XN6Y5RG5TXUBmS0JSK5WxQOgl+eE3fFjV6g6EGK/0zvsYjH9j1F" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Pusat Sukan UTeM - Inventory Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -26,36 +25,6 @@
         .table th, .table td {
             text-align: center;
         }
-        .hidden {
-            display: none;
-        }
-        .nav-link {
-            color: #007bff;
-        }
-        .nav-link:hover {
-            text-decoration: underline;
-        }
-        .btn-primary, .btn-success {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-        .btn-primary:hover, .btn-success:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-        .navbar {
-            background-color: #f8f9fa;
-            padding: 10px 0;
-        }
-        .navbar-brand {
-            color: #007bff;
-        }
-        .navbar-brand:hover {
-            color: #0056b3;
-        }
-        .fa-search, .fa-user, .fa-boxes, .fa-cart-arrow-down {
-            margin-right: 8px;
-        }
     </style>
 </head>
 <body>
@@ -63,35 +32,12 @@
     <!-- Header Section -->
     <div class="header">
         <h1>Pusat Sukan Universiti Teknikal Malaysia Melaka</h1>
-        <h2>Inventory Management System</h2>
+        <h2>Inventory Management</h2>
     </div>
-
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">PS UTeM</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#loginSection"><i class="fas fa-user"></i> Login</a>
-                    </li>
-                    <li class="nav-item hidden" id="inventoryNavItem">
-                        <a class="nav-link" href="#inventorySection"><i class="fas fa-boxes"></i> Inventory</a>
-                    </li>
-                    <li class="nav-item hidden" id="checkoutNavItem">
-                        <a class="nav-link" href="#checkoutSection"><i class="fas fa-cart-arrow-down"></i> Checkout</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
     <div class="container">
         <!-- Login Form -->
-        <div id="loginSection" class="card">
+        <div class="card">
             <div class="card-header">
                 <h3>Login</h3>
             </div>
@@ -111,14 +57,14 @@
         </div>
 
         <!-- Inventory Management Section -->
-        <div id="inventorySection" class="card hidden">
+        <div class="card">
             <div class="card-header">
                 <h3>Manage Sport Equipment Inventory</h3>
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <input type="text" class="form-control w-75" placeholder="Search products..." aria-label="Search" id="searchInput">
-                    <button class="btn btn-primary ms-2"><i class="fas fa-search"></i> Search</button>
+                    <button class="btn btn-primary ms-2">Search</button>
                 </div>
                 <table class="table table-bordered table-striped" id="inventoryTable">
                     <thead>
@@ -133,24 +79,12 @@
                         <!-- Inventory items will be dynamically populated here -->
                     </tbody>
                 </table>
-                <button class="btn btn-success mt-3" id="checkoutButton"><i class="fas fa-cart-arrow-down"></i> Proceed to Checkout</button>
-            </div>
-        </div>
-
-        <!-- Checkout Section -->
-        <div id="checkoutSection" class="card hidden">
-            <div class="card-header">
-                <h3>Checkout</h3>
-            </div>
-            <div class="card-body">
-                <p><i class="fas fa-check-circle" style="color:green"></i> Checkout successful! Thank you for using our inventory management system.</p>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS and Font Awesome -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
     <script>
         // Sample inventory data
         const inventory = [
@@ -179,10 +113,7 @@
             event.preventDefault();
             // Simulate login success
             alert('Login successful!');
-            // Show inventory management section and update navbar
-            document.getElementById('loginSection').classList.add('hidden');
-            document.getElementById('inventoryNavItem').classList.remove('hidden');
-            document.getElementById('inventorySection').classList.remove('hidden');
+            // Here you would typically redirect to the inventory management page
         });
 
         // Handle update button clicks
@@ -207,8 +138,6 @@
                 row.style.display = itemName.includes(searchValue) ? '' : 'none';
             });
         });
-
-        // Handle checkout button click
-        document.getElementById('checkoutButton').addEventListener('click', function() {
-            // Hide inventory management section and show checkout section
-            document.getElementById('inventory[_{{{CITATION{{{_1{](https://github.com/litposthinker/Tugas-aydin/tree/d488355075682b7260e2bc77502204a9221c1596/portofolio-gue%2Fdetail.php)[_{{{CITATION{{{_2{](https://github.com/Agilbay04/VLMS-JTI/tree/ac9dee3ecf421da62ff9cf5b76dee9de633b83de/bootstrap-4.6.0%2Fsite%2Fcontent%2Fdocs%2F4.6%2Fcomponents%2Fnavbar.md)[_{{{CITATION{{{_3{](https://github.com/gagas3113/uts_1402019041/tree/95f760ab6348f7119af08858f43580ca1bf172f1/uts_1402019041%2Findex.php)[_{{{CITATION{{{_4{](https://github.com/Pengkuh/rental-mobil/tree/1a5867a55871ff84a0d56dec98d7a42168f12d3c/carecar%2Forder%2Forder.php)[_{{{CITATION{{{_5{](https://github.com/abdulalim-cse/ResponsiveLoginForm/tree/599855b1ce539c367ef2b0a7bb84766b732d7345/ResponsiveLoginForm%2Flogin.php)[_{{{CITATION{{{_6{](https://github.com/Ultraking1/FH_Technikum_Wien/tree/ad3a2128b3b83ec18336379bd4a6a8c9e6e5f82d/SEM1_WS2020%2FWebtechnologien%2FEigenstudium_H%2Fsites%2Flogin.php)
+    </script>
+</body>
+</html>
