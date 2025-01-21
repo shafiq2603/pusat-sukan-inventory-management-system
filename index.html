@@ -25,6 +25,9 @@
         .table th, .table td {
             text-align: center;
         }
+        .d-none {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -79,6 +82,42 @@
                         <!-- Inventory items will be dynamically populated here -->
                     </tbody>
                 </table>
+
+                <!-- Add New Item Form -->
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h3>Add New Item</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="addItemForm">
+                            <div class="mb-3">
+                                <label for="newItemName" class="form-label">Item Name</label>
+                                <input type="text" class="form-control" id="newItemName" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newItemBrand" class="form-label">Brand</label>
+                                <input type="text" class="form-control" id="newItemBrand" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newItemQuantity" class="form-label">Quantity</label>
+                                <input type="number" class="form-control" id="newItemQuantity" value="1" min="1" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Add Item</button>
+                        </form>
+                    </div>
+                </div>
+
+                <button class="btn btn-success mt-3" id="checkoutButton">Proceed to Checkout</button>
+            </div>
+        </div>
+
+        <!-- Checkout Section -->
+        <div class="card d-none" id="checkoutCard">
+            <div class="card-header">
+                <h3>Checkout</h3>
+            </div>
+            <div class="card-body">
+                <p>Checkout successful! Thank you for using our inventory management system.</p>
             </div>
         </div>
     </div>
@@ -87,7 +126,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Sample inventory data
-        const inventory = [
+        let inventory = [
             { itemName: 'Badminton Racket VECTOR', brand: 'Yonex', quantity: 5 },
             { itemName: 'Cricket Batting Gloves (Pair)', brand: 'Adidas', quantity: 12 },
             { itemName: 'Tennis Racket Wilson', brand: 'Wilson', quantity: 8 },
@@ -97,16 +136,25 @@
 
         // Populate inventory table
         const inventoryTableBody = document.querySelector('#inventoryTable tbody');
-        inventory.forEach(item => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${item.itemName}</td>
-                <td>${item.brand}</td>
-                <td><input type="number" class="form-control" value="${item.quantity}" min="0" max="20"></td>
-                <td><button class="btn btn-primary update-btn">Update</button></td>
-            `;
-            inventoryTableBody.appendChild(row);
-        });
+        function populateInventoryTable() {
+            inventoryTableBody.innerHTML = '';
+            inventory.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.itemName}</td>
+                    <td>${item.brand}</td>
+                    <td><input type="number" class="form-control" value="${item.quantity}" min="0" max="20"></td>
+                    <td>
+                        <button class="btn btn-primary update-btn">Update</button>
+                        <button class="btn btn-danger delete-btn" data-index="${index}">Delete</button>
+                    </td>
+                `;
+                inventoryTableBody.appendChild(row);
+            });
+            attachUpdateEvent();
+            attachDeleteEvent();
+        }
+        populateInventoryTable();
 
         // Handle login form submission
         document.getElementById('loginForm').addEventListener('submit', function(event) {
@@ -119,18 +167,39 @@
         });
 
         // Handle update button clicks
-        document.querySelectorAll('.update-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const row = this.closest('tr');
-                const itemName = row.cells[0].innerText;
-                const quantityInput = row.querySelector('input[type="number"]');
-                const newQuantity = quantityInput.value;
+        function attachUpdateEvent() {
+            document.querySelectorAll('.update-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const itemName = row.cells[0].innerText;
+                    const quantityInput = row.querySelector('input[type="number"]');
+                    const newQuantity = quantityInput.value;
 
-                // Simulate updating the inventory
-                alert(`Updated ${itemName} quantity to ${newQuantity}`);
-                // Here you would typically send the updated quantity to the server
+                    // Simulate updating the inventory
+                    alert(`Updated ${itemName} quantity to ${newQuantity}`);
+                    // Update inventory data
+                    const item = inventory.find(item => item.itemName === itemName);
+                    item.quantity = parseInt(newQuantity);
+                });
             });
-        });
+        }
+
+        // Handle delete button clicks
+        function attachDeleteEvent() {
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    const itemName = inventory[index].itemName;
+
+                    // Remove item from inventory
+                    inventory.splice(index, 1);
+                    populateInventoryTable();
+
+                    // Simulate deleting the inventory item
+                    alert(`Deleted ${itemName} from inventory`);
+                });
+            });
+        }
 
         // Handle search functionality
         document.getElementById('searchInput').addEventListener('input', function() {
@@ -140,6 +209,26 @@
                 row.style.display = itemName.includes(searchValue) ? '' : 'none';
             });
         });
-    </script>
-</body>
-</html>
+
+        // Handle adding new items
+        document.getElementById('addItemForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const newItemName = document.getElementById('newItemName').value;
+            const newItemBrand = document.getElementById('newItemBrand').value;
+            const newItemQuantity = document.getElementById('newItemQuantity').value;
+            const newItem = { itemName: newItemName, brand: newItemBrand, quantity: parseInt(newItemQuantity) };
+            
+            // Add new item to inventory
+            inventory.push(newItem);
+            populateInventoryTable();
+
+            // Reset form
+            document.getElementById('addItemForm').reset();
+            alert('New item added successfully!');
+        });
+
+        // Handle checkout button click
+        document.getElementById('checkoutButton').addEventListener('click', function() {
+            // Hide inventory management section and show checkout section
+            document.getElementById('inventoryCard').classList.add('d-none');
+[_{{{CITATION{{{_1{](https://github.com/abdulalim-cse/ResponsiveLoginForm/tree/599855b1ce539c367ef2b0a7bb84766b732d7345/ResponsiveLoginForm%2Flogin.php)[_{{{CITATION{{{_2{](https://github.com/Ultraking1/FH_Technikum_Wien/tree/ad3a2128b3b83ec18336379bd4a6a8c9e6e5f82d/SEM1_WS2020%2FWebtechnologien%2FEigenstudium_H%2Fsites%2Flogin.php)
