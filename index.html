@@ -37,7 +37,7 @@
 
     <div class="container">
         <!-- Login Form -->
-        <div class="card">
+        <div class="card" id="loginCard">
             <div class="card-header">
                 <h3>Login</h3>
             </div>
@@ -57,7 +57,7 @@
         </div>
 
         <!-- Inventory Management Section -->
-        <div class="card">
+        <div class="card d-none" id="inventoryCard">
             <div class="card-header">
                 <h3>Manage Sport Equipment Inventory</h3>
             </div>
@@ -113,7 +113,9 @@
             event.preventDefault();
             // Simulate login success
             alert('Login successful!');
-            // Here you would typically redirect to the inventory management page
+            // Hide login form and show inventory management section
+            document.getElementById('loginCard').classList.add('d-none');
+            document.getElementById('inventoryCard').classList.remove('d-none');
         });
 
         // Handle update button clicks
