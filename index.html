@@ -61,8 +61,9 @@
 
         <!-- Inventory Management Section -->
         <div class="card d-none" id="inventoryCard">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h3>Manage Sport Equipment Inventory</h3>
+                <button class="btn btn-danger" id="signOutButton">Sign Out</button>
             </div>
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -166,6 +167,13 @@
             document.getElementById('inventoryCard').classList.remove('d-none');
         });
 
+        // Handle sign out button click
+        document.getElementById('signOutButton').addEventListener('click', function() {
+            // Hide inventory management section and show login form
+            document.getElementById('inventoryCard').classList.add('d-none');
+            document.getElementById('loginCard').classList.remove('d-none');
+        });
+
         // Handle update button clicks
         function attachUpdateEvent() {
             document.querySelectorAll('.update-btn').forEach(button => {
@@ -215,20 +223,4 @@
             event.preventDefault();
             const newItemName = document.getElementById('newItemName').value;
             const newItemBrand = document.getElementById('newItemBrand').value;
-            const newItemQuantity = document.getElementById('newItemQuantity').value;
-            const newItem = { itemName: newItemName, brand: newItemBrand, quantity: parseInt(newItemQuantity) };
-            
-            // Add new item to inventory
-            inventory.push(newItem);
-            populateInventoryTable();
-
-            // Reset form
-            document.getElementById('addItemForm').reset();
-            alert('New item added successfully!');
-        });
-
-        // Handle checkout button click
-        document.getElementById('checkoutButton').addEventListener('click', function() {
-            // Hide inventory management section and show checkout section
-            document.getElementById('inventoryCard').classList.add('d-none');
-[_{{{CITATION{{{_1{](https://github.com/abdulalim-cse/ResponsiveLoginForm/tree/599855b1ce539c367ef2b0a7bb84766b732d7345/ResponsiveLoginForm%2Flogin.php)[_{{{CITATION{{{_2{](https://github.com/Ultraking1/FH_Technikum_Wien/tree/ad3a2128b3b83ec18336379bd4a6a8c9e6e5f82d/SEM1_WS2020%2FWebtechnologien%2FEigenstudium_H%2Fsites%2Flogin.php)
+            const
