@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pusat Sukan UTeM - Inventory Management</title>
+    <title>Pusat Sukan UTeM - Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -17,13 +17,10 @@
             text-align: center;
         }
         .container {
-            margin-top: 20px;
+            margin-top: 50px;
         }
         .card {
             margin: 15px 0;
-        }
-        .table th, .table td {
-            text-align: center;
         }
     </style>
 </head>
@@ -32,7 +29,7 @@
     <!-- Header Section -->
     <div class="header">
         <h1>Pusat Sukan Universiti Teknikal Malaysia Melaka</h1>
-        <h2>Inventory Management</h2>
+        <h2>Login</h2>
     </div>
 
     <div class="container">
@@ -55,88 +52,17 @@
                 </form>
             </div>
         </div>
-
-        <!-- Inventory Management Section -->
-        <div class="card">
-            <div class="card-header">
-                <h3>Manage Sport Equipment Inventory</h3>
-            </div>
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <input type="text" class="form-control w-75" placeholder="Search products..." aria-label="Search" id="searchInput">
-                    <button class="btn btn-primary ms-2">Search</button>
-                </div>
-                <table class="table table-bordered table-striped" id="inventoryTable">
-                    <thead>
-                        <tr>
-                            <th>Item Name</th>
-                            <th>Brand</th>
-                            <th>Quantity</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Inventory items will be dynamically populated here -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Sample inventory data
-        const inventory = [
-            { itemName: 'Badminton Racket VECTOR', brand: 'Yonex', quantity: 5 },
-            { itemName: 'Cricket Batting Gloves (Pair)', brand: 'Adidas', quantity: 12 },
-            { itemName: 'Tennis Racket Wilson', brand: 'Wilson', quantity: 8 },
-            { itemName: 'Soccer Ball PU Size 5', brand: 'Star Impact', quantity: 10 },
-            { itemName: 'Basketball Leather No.6', brand: 'Spalding', quantity: 7 },
-        ];
-
-        // Populate inventory table
-        const inventoryTableBody = document.querySelector('#inventoryTable tbody');
-        inventory.forEach(item => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${item.itemName}</td>
-                <td>${item.brand}</td>
-                <td><input type="number" class="form-control" value="${item.quantity}" min="0" max="20"></td>
-                <td><button class="btn btn-primary update-btn">Update</button></td>
-            `;
-            inventoryTableBody.appendChild(row);
-        });
-
         // Handle login form submission
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            // Simulate login success
+            // Simulate login success and redirect to inventory page
             alert('Login successful!');
-            // Here you would typically redirect to the inventory management page
-        });
-
-        // Handle update button clicks
-        document.querySelectorAll('.update-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const row = this.closest('tr');
-                const itemName = row.cells[0].innerText;
-                const quantityInput = row.querySelector('input[type="number"]');
-                const newQuantity = quantityInput.value;
-
-                // Simulate updating the inventory
-                alert(`Updated ${itemName} quantity to ${newQuantity}`);
-                // Here you would typically send the updated quantity to the server
-            });
-        });
-
-        // Handle search functionality
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const searchValue = this.value.toLowerCase();
-            document.querySelectorAll('#inventoryTable tbody tr').forEach(row => {
-                const itemName = row.cells[0].innerText.toLowerCase();
-                row.style.display = itemName.includes(searchValue) ? '' : 'none';
-            });
+            window.location.href = 'inventory.html';
         });
     </script>
 </body>
